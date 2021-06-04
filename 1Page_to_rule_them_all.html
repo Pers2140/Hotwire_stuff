@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tolkien Portal</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    #resizable {
+      width: 150px;
+      height: 150px;
+      padding: 0.5em;
+    }
+
+    #resizable h3 {
+      text-align: center;
+      margin: 0;
+    }
+
+    textarea {
+      resize: none;
+
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding-top: 56.25%;
+      /* 16:9 Aspect Ratio */
+    }
+
+    .window {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .glyphicon {
+      font-size: 25px;
+      margin: 3px;
+    }
+
+    .menu-bar {
+      background: #ecedee;
+      padding: 3px;
+      text-align: center;
+    }
+
+    .menu-bar input {
+      text-align: center;
+    }
+	
+	.badge:hover{
+		transform:scale(1.05);	
+	}
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script>
+  
+    var macAddress = $("#hardwareAddress").html();
+	// Find mac maker
+	var find_maker = () =>{
+		var url = "https://api.macvendors.com/"+macAddress
+		console.log(macAddress)
+		var link = "<a target='_blank' href="+url+">Maker</a>"
+		
+	}
+    var refresh = () => {
+      document.getElementById("cog-form").innerHTML = document.getElementById("cog-form").innerHTML;
+    }
+    
+    var start_timer = () => {
+	
+      console.log('start timer')
+      var speed = prompt("Please enter auto refresh in secs (0 to disable)")
+      var timer = setInterval(refresh, (1000 *speed));
+
+    }
+
+    var stop_timer = () => {
+	
+      console.log('start timer')
+      console.log('stop function fired')
+      var highestTimeoutId = setTimeout(";");
+      for (var i = 0; i < highestTimeoutId; i++) {
+        clearTimeout(i);
+      }
+      // document.getElementById("cog-form").innerHTML = document.getElementById("cog-form").innerHTML;
+    }
+	
+	var copy = () => {
+		  /* Get the text field */
+  var copyText = document.getElementById("notes");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+	}
+  // changes the iframe to selected link
+ 
+    $(document).ready(() => {
+      
+      // Changes value to standard MAC format
+      var macAddress = $("#macAddress");
+      var formatMAC = (e) => {
+        var r = /([a-f0-9]{2})([a-f0-9]{2})/i,
+          str = e.target.value.replace(/[^a-f0-9]/ig, "");
+        while (r.test(str)) {
+          str = str.replace(r, '$1' + ':' + '$2');
+        }
+        e.target.value = str.slice(0, 17);
+      };
+      macAddress.keydown(formatMAC);
+      macAddress.mouseover(formatMAC);
+
+      // Changes value to standard HostMAC format
+      var macAddress = $("#hostAddress");
+      var hostMAC = (e) => {
+        var r = /([a-f0-9]{4})([a-f0-9]{4})/i,
+          str = e.target.value.replace(/[^a-f0-9]/ig, "");
+        while (r.test(str)) {
+          str = str.replace(r, '$1' + '.' + '$2');
+        }
+        e.target.value = str.slice(0, 17);
+      };
+      macAddress.keydown(hostMAC);
+      macAddress.mouseover(hostMAC);
+
+      // Changes value to standard HostMAC format
+	var macAddress = $("#hardwareAddress");
+      var hardwareMAC = (e)=> {
+        var r = /([a-f0-9]{2})([a-f0-9]{2})/i,
+          str = e.target.value.replace(/[^a-f0-9]/ig, "");
+        while (r.test(str)) {
+          str = str.replace(r, '$1' + ':' + '$2');
+        }
+        e.target.value = str.slice(0, 17);
+      };
+      macAddress.keydown(hardwareMAC);
+      macAddress.mouseover(hardwareMAC);
+    })
+
+  </script>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row mx-auto w-100">
+      <div class="col-sm-5" style="background-color:#ecedee;">
+        <div id="resizable1" class="ui-widget-content">
+          <object id="ch1" sytle="overflow:hidden" data="https://app-scl.five9.com/clients/agent/main.html?role=Agent#agent/home"
+            width="100%" height="650">
+            <embed id="ch2" class="window" src="https://app-scl.five9.com/clients/agent/main.html?role=Agent#agent/home"
+              width="600" height="auto"> </embed>
+            Error: Embedded data could not be displayed.
+          </object>
+        </div>
+        <div class="row">
+			</br>
+			<div style="font-size:18px" height="auto" id="resizable2" class="col-md-8">
+			<textarea style="border: 1px solid #0275d8;text-align:left;" id="notes" class="text-box" id="textarea"  rows="8" cols="46">
+			
+			</textarea>	
+			<br>
+			<div onclick="$('#notes').val('')"class="d-block btn btn-primary">Clear</div>
+			<div onclick="copy()"class="d-block btn btn-primary">Copy</div>
+			
+			</div>
+		<div class="col-md-4 h-25 align-middle">
+		   <a style="padding:5px;margin:5px" href="https://intranet.gethotwired.com/odin" target="_blank" class="badge badge-dark">Odin</a>
+		   <a style="padding:5px;margin:5px" href="https://docs.google.com/spreadsheets/d/1fhhJH1laITckV_7XpDD0Wk5IaPT9C1_WD6PkTZIG18s/edit#gid=0" target="_blank" class="badge badge-dark">Matrix</a>
+		   <a style="padding:5px;margin:5px" href="https://www.lumen.com/login/" target="_blank" class="badge badge-dark">Lumen</a>
+		   <a style="padding:5px;margin:5px" href="https://gethotwired.com/wiki" target="_blank" class="badge badge-dark">Wiki</a>
+		   <a style="padding:5px;margin:5px" href="https://jira.gethotwired.com/secure/Dashboard.jspa" target="_blank" class="badge badge-dark">Jira</a>
+		   <a style="padding:5px;margin:5px" href="https://thor.gethotwired.com/Orion/SummaryView.aspx?ViewID=8" target="_blank" class="badge badge-dark">SolarWinds</a>
+		   <a style="padding:5px;margin:5px" href="https://commvideo.gethotwired.com/FisionToolV3/index.php?go=1#PAGE/./ajax/accounts.php" target="_blank" class="badge badge-dark">Fision Tools</a>
+		   <a style="padding:5px;margin:5px" href="https://24.238.0.13:10000/" target="_blank" class="badge badge-dark">North Server</a>
+		   <a style="padding:5px;margin:5px" href="https://10.53.7.15:10000/?dashboard" target="_blank" class="badge badge-dark">South Server</a>
+		   <a style="padding:5px;margin:5px" data-toggle="modal" data-target="#myModal" class="badge badge-dark">Boot Files</a>
+		   <a style="padding:5px;margin:5px" data-toggle="modal" data-target="#email" class="badge badge-dark">Send Files</a>
+		  
+		   <!-- Trigger the modal with a button -->
+
+
+
+<!-- Modal -->
+<div id="email" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Email Generator</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" id="acc_num" placeholder="Account Number"><br>
+      <input type="text" class="form-control" id="offer" placeholder="Offer"><br>
+      <input type="text" class="form-control" id="name" placeholder="Name"><br>
+      <input type="text" class="form-control" id="property" placeholder="Property"><br>
+      <input type="text" class="form-control" id="tel" placeholder="Telephone"><br>
+      <input type="text" class="form-control" id="sn" placeholder="ONT serial"><br>
+
+      <textarea id="addr" class="form-control" rows="3" style="white-space: pre-wrap;"></textarea><br><br>
+	  <button id="generate" class="btn btn-primary">Generate</button>
+	  <button id="clear" class="btn btn-primary">Clear</button>
+	    <br><br>
+		
+<div id="output"></div>
+<script>
+
+$("#clear").click(()=>{
+  $("#acc_num").val('')
+  $("#offer").val('')
+  $("#name").val('')
+  $("#property").val('')
+  $("#tel").val('')
+  $("#sn").val('')
+  $("#addr").val('')
+  $("#output").val('')
+  
+  })
+ $(".close").click(()=>{
+ alert('clicked')
+  $("#acc_num").val('')
+  $("#offer").val('')
+  $("#name").val('')
+  $("#property").val('')
+  $("#tel").val('')
+  $("#sn").val('')
+  $("#addr").val('')
+  $("#output").val('')
+  })
+$("#generate").click(()=>{
+  let acc_num= $("#acc_num").val()
+  let offer = $("#offer").val()
+  let name = $("#name").val()
+  let property= $("#property").val()
+  let tel = $("#tel").val()
+  let sn = $("#sn").val()
+  let addr = $("#addr").val()
+
+  let output = `RE: FL - OFFER# ${offer} - Cus Name: ${name} property - ${property} Tel #${tel}  not in databases.<br><br>
+<br><br>
+Good Morning, 
+ 
+Please assist with request below, phone number (${tel}) not in Odin DB
+ <br><br><br>
+SITE#: ${property}<br>
+ACCOUNT#: ${acc_num}<br>
+OFFER#: ${offer}<br>
+PHONE#: ${tel}<br>
+ONT SN#:${sn}<br>
+<br>
+Customer Information:<br>  
+Customers Name: ${name}<br><br>
+${addr}
+<br><br>
+<a href="mailto:info@w3docs.com?cc=secondemail@example.com, anotheremail@example.com, &bcc=lastemail@example.com&subject=&body=Dear W3docs Team">Send Email</a>
+Best Regards, 
+
+                `
+
+  $("#output").html(output)
+})
+
+  </script>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog ">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h1 class="modal-title">Boot Files</h1>
+      </div>
+      <div class="modal-body text-center ">
+        
+			<div class="">
+				<b><h1>South Server</h1></b>
+				<b><p>DOCSIS 1 Modems<p></b>
+				<li>1mb/500k: DOCSIS10_1D_0_5U.cm</li>
+				<li>5mb/1mb: DOCSIS10_5D_1U.cm</li>
+				<li>10mb/2mb: DOCSIS10_10D_2U.cm</li>
+				<li>15mb/3mb: DOCSIS10_15D_3U.cm</li>
+				</br>
+				<b><p>DOCSIS 3 Modems<p></b>
+				<li>5mb/1mb: DOCSIS3_5D_1U.cm</li>
+				<li>10mb/2mb: DOCSIS3_10D_2U.cm</li>
+				<li>15mb/3mb: DOCSIS3_15D_3U.cm</li>
+				<li>20mb/5mb: DOCSIS3_20D_5U.cm</li>
+				<li>25mb/5mb: DOCSIS3_25D_5U.cm</li>
+				<li>30mb/5mb: DOCSIS3_30D_5U.cm</li>
+				<li>30mb/7mb: DOCSIS3_30D_7U.cm</li>
+				<li>50mb/5mb: DOCSIS3_50D_5U.cm</li>
+				<li>50mb/10mb: DOCSIS3_50D_10U.cm</li>
+				<li>75mb/20mb: DOCSIS3_75D_20U.cm</li>
+				</br>
+				<b><p>Alhambra Cove<p></b>
+				<li>1M: Alhambra1.cm</li>
+				<li>5M: Alhambra1_5D_1U.cm</li>
+				<li>10M: Alhambra1_10D_2U.cm</li>
+				<li>30M: Alhambra_30D_5U.cm</li>
+				a<b><p>Indian Creek<p></b>
+				<li>25M: INDIAN-CREEK_25D_5U.cm</li>
+				</br>
+
+
+			</div>
+						<div class="">
+				<b><p>Voice Boot Files<p></b>
+				<li>TM502 modems: mtaupgrade.cm</li>
+				<li>TM602 modems: mtaupgrade6.cm</li>
+				<li>TM822G modems: mtaupgrade7_8.cm</li>
+				<li>TG2472G Modems: mtaupgrade2472.cm</li>
+				
+				<b><h1>North Server</h1></b>
+				<b><p>DOCSIS 1 Modems<p></b>
+				<li>8mb/2mb: DOCSIS10_8D_2U.cm</li>
+				<li>15mb/3mb: DOCSIS10_15D_3U.cm</li>
+				
+				</br>
+				<b><p>DOCSIS 3 Modems<p></b>
+				<li>10mb/2mb: docsis3_10_2.cm</li>
+				<li>15mb/2mb: docsis3_15_2.cm</li>
+				<li>25mb/5mb: docsis3_25_5.cm</li>
+				<li>50mb/2mb: docsis3_50_2.cm</li>
+				<li>50mb/20mb: docsis3_50_20.cm</li>
+				</br>
+				<b><p>Conwyn Arms, Radcliff, Rosemount, & Tedwyn Modems<p></b>
+				<li>15m/5m: Rosemont_D3_15_5.cm</li>
+				<li>30m/10m: Rosemont_D3_30_10.cm</li>
+				</br>
+				<b><p>Voice Boot Files<p></b>
+				<li>TM502 modems: mtaupgrade.cm</li>
+				<li>TM602 modems: mtaupgrade6.cm</li>
+				<li>TM822G modems: mtaupgrade7_8.cm</li>
+				</br>
+
+			</div>
+			
+						
+			
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+		</div>
+		</div>
+      </div>
+
+      <div class="menu-bar">
+
+        <div class="timer m-1">
+          <a onclick="refresh()" href="#">
+            <span class="glyphicon glyphicon-refresh m-3"></span>
+          </a>
+          <a onclick="stop_timer()" href="#">
+            <span class="glyphicon glyphicon-stop"></span>
+          </a>
+          <a onclick="start_timer()" href="#">
+            <span class="glyphicon glyphicon-play-circle"></span>
+          </a>
+		  <a onclick="find_maker()" href="#">
+            <span class="glyphicon glyphicon glyphicon-question-sign"></span>
+          </a>
+		  <div id="result"></div>
+        </div>
+
+        <input id="toupper" style="border: 1px solid #0275d8;text-transform: uppercase" type="text" value="To Upper" maxlength="18" /></input>
+        <input id="hostAddress" style="border: 1px solid #0275d8;text-transform: lowercase" type="text" value="Host MAC" maxlength="18"></input>
+        <input id="hardwareAddress" style="border: 1px solid #0275d8;text-transform: lowercase" type="text" value="Hardware MAC"
+          maxlength="17"></input>
+      </div>
+      <div id="cog-form" class="col-sm-7 border border-0" style="background-color:#ecedee;">
+        <div  id="resizable3" class="ui-widget-content">
+          <object  style="overflow:hidden" data="https://www.cognitoforms.com/forms/tier2provisionrequest2/entries/4-dw"
+            width="100%" height="900">
+            <embed class="window" src="https://www.cognitoforms.com/forms/tier2provisionrequest2/entries/4-dw"
+              width="100%" height="auto"> </embed>
+            Error: Embedded data could not be displayed.
+          </object>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
